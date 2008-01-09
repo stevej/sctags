@@ -3,11 +3,46 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.pmonk</groupId>
   <artifactId>sctags</artifactId>
+  <name>SCTags</name>
+  <url>http://programmer-monk.net/trac/sctags</url>
   <version>1.0.1</version>
   <inceptionYear>2007</inceptionYear>
   <properties>
     <scala.version>2.6.1</scala.version>
   </properties>
+
+  <description>
+    Generates ctags-compatible tag file for scala source code
+  </description>
+
+  <licenses>
+    <license>
+      <name>Apache 2.0</name>
+      <url>http://apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>geoff</id>
+      <name>Geoff Reedy</name>
+      <email>geoff @ programmer-monk.net</email>
+      <url>http://programmer-monk.net</url>
+      <timezone>-7</timezone>
+    </developer>
+  </developers>
+
+  <issueManagement>
+    <system>trac</system>
+    <url>http://programmer-monk.net/trac/sctags</url>
+  </issueManagement>
+
+  <scm>
+    <connection>scm:darcs:http://programmer-monk.net/darcs/repos/sctags</connection>
+    <tag>HEAD</tag>
+    <url>http://programmer-monk.net/darcs/repos/sctags</url>
+  </scm>
 
   <repositories>
     <repository>
@@ -27,6 +62,12 @@
       <id>programmer-monk.net</id>
       <url>scpexe://programmer-monk.net/srv/maven/repo</url>
     </repository>
+    <downloadUrl>http://programmer-monk.net/maven/repo/</downloadUrl>
+    <site>
+      <id>sctags.site</id>
+      <name>SCTags Site</name>
+      <url>scpexe://programmer-monk.net/srv/maven/sites</url>
+    </site>
   </distributionManagement>
   
   <pluginRepositories>
