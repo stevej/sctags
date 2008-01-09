@@ -67,7 +67,7 @@
     <site>
       <id>sctags.site</id>
       <name>SCTags Site</name>
-      <url>scpexe://programmer-monk.net/srv/maven/sites</url>
+      <url>scpexe://programmer-monk.net/srv/maven/sites/sctags</url>
     </site>
   </distributionManagement>
   
