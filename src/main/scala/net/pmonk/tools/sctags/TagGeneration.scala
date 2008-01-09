@@ -27,7 +27,7 @@ object generateTags {
 
       def tag_(file: String, address: String)(name: Name, kind: char, fields: Tuple2[String, String]*) = {
         if (!name.decode.contains('$') && !name.decode.equals("this")) {
-          val withKind = Seq.single("kind"->kind.toString).projection.append(fields)
+          val withKind = Seq.singleton("kind"->kind.toString).projection.append(fields)
           _tags += new Tag(name.decode, file, address, withKind: _*)
         }
       }
