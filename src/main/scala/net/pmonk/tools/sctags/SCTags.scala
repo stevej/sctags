@@ -16,9 +16,8 @@ import java.text.Collator
 
 object SCTags extends ApplicationWithOptions {
 
-  class CaseInsensitiveOrder(val self: String, val collator: Collator) extends Ordered[String] {
-    def this(self: String) = this(self, Collator.getInstance());
-    def compare(that: String) = collator.compare(self, that)
+  class CaseInsensitiveOrder(val self: String) extends Ordered[String] {
+    def compare(that: String) = self.compareToIgnoreCase(that)
   }
 
   val header = Array(
