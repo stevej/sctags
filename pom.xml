@@ -9,6 +9,7 @@
   <inceptionYear>2007</inceptionYear>
   <properties>
     <scala.version>2.6.1</scala.version>
+    <scala-optparse.version>1.0</scala-optparse.version>
   </properties>
 
   <description>
@@ -98,7 +99,7 @@
     <dependency>
       <groupId>net.pmonk</groupId>
       <artifactId>scala-optparse</artifactId>
-      <version>1.0</version>
+      <version>${scala-optparse.version}</version>
     </dependency>
   </dependencies>
   
