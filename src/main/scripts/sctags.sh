@@ -1,3 +1,3 @@
 #!/bin/sh
-SCTAGS_DIR="`dirname "$0"`"/../share/scala/lib
-scala -classpath "$SCTAGS_DIR/scala-optparse.jar:$SCTAGS_DIR/sctags.jar" net.pmonk.tools.sctags.SCTags "$@"
+SCTAGS_DIR="`dirname "$0"`"
+scala -classpath "$SCTAGS_DIR/lib/scala-optparse-${scala-optparse.version}.jar:$SCTAGS_DIR/sctags-${version}.jar" net.pmonk.tools.sctags.SCTags "$@"
