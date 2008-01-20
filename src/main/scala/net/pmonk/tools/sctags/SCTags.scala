@@ -14,7 +14,9 @@ import java.io.PrintStream
 
 import java.text.Collator
 
-object SCTags extends ApplicationWithOptions {
+object SCTags extends ApplicationWithOptions
+  with Parsing with TagGeneration
+{
 
   class CaseInsensitiveOrder(val self: String) extends Ordered[String] {
     def compare(that: String) = self.compareToIgnoreCase(that)
@@ -46,7 +48,7 @@ object SCTags extends ApplicationWithOptions {
   def error(str: String) = System.err.println("Error: " + str);
   val settings = new Settings(error);
   val reporter = new StoreReporter;
-  implicit val compiler = new Global(settings, reporter);
+  val compiler = new Global(settings, reporter);
 
   def run(fnames: Seq[String]) {
     val files = new ListBuffer[File]

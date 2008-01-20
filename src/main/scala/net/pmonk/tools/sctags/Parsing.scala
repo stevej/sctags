@@ -8,19 +8,25 @@ import scala.tools.nsc.util.BatchSourceFile
 
 import java.io.File;
 
-object parse {
-  def apply(af: AbstractFile)(implicit compiler: Global): Global#Tree = 
-    apply(new compiler.CompilationUnit(new BatchSourceFile(af)))(compiler)
+trait Parsing { this: SCTags.type =>
+  import compiler.syntaxAnalyzer._
+  import compiler._
+  object parse {
+    def apply(af: AbstractFile): Tree =
+      apply(new CompilationUnit(new BatchSourceFile(af)))
 
-  def apply(f: File)(implicit compiler: Global): Global#Tree =
-    apply(AbstractFile.getFile(f))(compiler)
+    def apply(f: File): Tree =
+      apply(AbstractFile.getFile(f))
 
-  def apply(fname: String)(implicit compiler: Global): Global#Tree =
-    apply(AbstractFile.getFile(fname))(compiler)
+    def apply(fname: String): Tree =
+      apply(AbstractFile.getFile(fname))
 
-  def apply(cu: Global#CompilationUnit)(implicit compiler: Global): Global#Tree = {
-    new compiler.Run
-    val parser = new compiler.syntaxAnalyzer.UnitParser(cu.asInstanceOf[compiler.CompilationUnit])
-    parser.compilationUnit
+    def apply(cu: CompilationUnit): Tree = {
+      new compiler.Run
+      val parser = new UnitParser(cu)
+      val tree = parser.compilationUnit
+      compiler.analyzer.newNamer(compiler.analyzer.rootContext(cu, tree, false)).enterSym(tree)
+      tree
+    }
   }
 }
