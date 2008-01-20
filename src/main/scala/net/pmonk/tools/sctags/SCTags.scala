@@ -21,6 +21,7 @@ object SCTags extends ApplicationWithOptions
 
   var outputFile: String = "tags";
   var recurse = false;
+  var etags = false
 
   val options = List(
     Opt('f')
@@ -32,7 +33,12 @@ object SCTags extends ApplicationWithOptions
       .withArgument[Boolean]
       .help("Recurse into directories supplied on command line")
       .alias('R', true)
-      .action { r => recurse = r }
+      .action { r => recurse = r },
+    Opt("etags")
+      .withArgument[Boolean]
+      .help("Generate a TAGS file for emacsen")
+      .alias('E', true)
+      .action { e => etags = e }
   );
 
   def error(str: String) = System.err.println("Error: " + str);
@@ -60,10 +66,14 @@ object SCTags extends ApplicationWithOptions
     val tags = files.map(f => (f.getPath, generateTags(parse(f))))
     val output = outputFile match {
       case "-" => Console.out
+      case "tags" if etags =>  new PrintStream("TAGS")
       case x => new PrintStream(x)
     }
 
-    CTags.generate(tags, output)
+    if (etags) {
+      ETags.generate(tags, output)
+    } else {
+      CTags.generate(tags, output)
+    }
   }
-
 }
