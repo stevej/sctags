@@ -3,7 +3,6 @@ package net.pmonk.tools.sctags
 import scala.tools.nsc.{Settings, Global}
 import scala.tools.nsc.reporters.StoreReporter
 
-import scala.util.Sorting.quickSort;
 import scala.collection.mutable.ListBuffer
 
 import net.pmonk.optparse._
@@ -17,15 +16,6 @@ import java.text.Collator
 object SCTags extends ApplicationWithOptions
   with Parsing with TagGeneration
 {
-
-  class CaseInsensitiveOrder(val self: String) extends Ordered[String] {
-    def compare(that: String) = self.compareToIgnoreCase(that)
-  }
-
-  val header = Array(
-    new Tag("!_TAG_FILE_FORMAT","2","//"),
-    new Tag("!_TAG_FILE_SORTED","2","/0=unsorted, 1=sorted, 2=sorted,casefold/")
-  )
 
   import FileUtils._;
 
@@ -67,16 +57,13 @@ object SCTags extends ApplicationWithOptions
       }
     }
 
-    val tags = files.map(f => parse(f)).flatMap(t => generateTags(t))
-    val tagStrings = (header ++ tags).map(_.toString).toArray
-    quickSort(tagStrings)({s => new CaseInsensitiveOrder(s)})
-
+    val tags = files.map(f => (f.getPath, generateTags(parse(f))))
     val output = outputFile match {
       case "-" => Console.out
       case x => new PrintStream(x)
     }
 
-    tagStrings foreach {l => output.println(l)}
+    CTags.generate(tags, output)
   }
 
 }
