@@ -11,22 +11,21 @@ import java.io.File;
 trait Parsing { this: SCTags.type =>
   import compiler.syntaxAnalyzer._
   import compiler._
-  object parse {
-    def apply(af: AbstractFile): Tree =
-      apply(new CompilationUnit(new BatchSourceFile(af)))
 
-    def apply(f: File): Tree =
-      apply(AbstractFile.getFile(f))
+  def parse(af: AbstractFile): Tree =
+    parse(new CompilationUnit(new BatchSourceFile(af)))
 
-    def apply(fname: String): Tree =
-      apply(AbstractFile.getFile(fname))
+  def parse(f: File): Tree =
+    parse(AbstractFile.getFile(f))
 
-    def apply(cu: CompilationUnit): Tree = {
-      new compiler.Run
-      val parser = new UnitParser(cu)
-      val tree = parser.compilationUnit
-      compiler.analyzer.newNamer(compiler.analyzer.rootContext(cu, tree, false)).enterSym(tree)
-      tree
-    }
+  def parse(fname: String): Tree =
+    parse(AbstractFile.getFile(fname))
+
+  def parse(cu: CompilationUnit): Tree = {
+    new compiler.Run
+    val parser = new UnitParser(cu)
+    val tree = parser.compilationUnit
+    compiler.analyzer.newNamer(compiler.analyzer.rootContext(cu, tree, false)).enterSym(tree)
+    tree
   }
 }
