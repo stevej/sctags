@@ -18,15 +18,14 @@ object CTags {
     val file = t._1
     val tags = t._2
     tags.map(tag => {
-      val pos = "/^" + tag.pos.content + "$/"
+      val pos = "/^" + tag.pos.content.replace("\\","\\\\") + "$/"
       tag.name + "\t" + file + "\t" + pos + tag.fieldsString
     })
   }
 
   def generate(tags: Seq[(String, Seq[Tag])], output: PrintStream) {
-    val tagStrings = (tags.flatMap(formatTags _)).toArray
+    val tagStrings = (tags.flatMap(formatTags _) ++ header).toArray
     quickSort(tagStrings)({s => new CaseInsensitiveOrder(s)})
-    header foreach {l => output.println(l)}
     tagStrings foreach {l => output.println(l)}
   }
 }
