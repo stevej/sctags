@@ -1,2 +1,5 @@
+h1. TODO
+
 # More unit tests
- 
+# a single-jar distribution
+# incremental TAGS regeneration

@@ -1,3 +1,10 @@
 h1. scalatags
 
-A generator for TAGS, CTAGS, and ETAGS files from scala source files.
+A generator for TAGS, (both CTAGS and ETAGS) files from scala source
+files.
+
+Originally written by Geoff Reedy (programmer-monk.net) with recent
+additions by Steve Jenson (saladwithsteve.com)
+
+Released under the Apache 2.0 License.
+
