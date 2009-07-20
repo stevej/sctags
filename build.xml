@@ -1,57 +1,20 @@
-<project name="sctags" default="jar">
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- CONFIG: change example and description to fit your project -->
+<project name="sctags" default="package" xmlns:ivy="antlib:org.apache.ivy.ant">
+  <description>scala ctags (and etags) generator</description>
 
-  <property file="ant.properties"/>
+  <!-- override creation of a jar with a version number in the name -->
+  <property name="dist.name" value="sctags" />
+  <property name="dist.build_name" value="true" />
 
-  <target name="init">
-    <mkdir dir="./build/lib"/>
-    <mkdir dir="./build/classes"/>
-    <mkdir dir="./build/classes-test"/>
-    <mkdir dir="./build/testreports"/>
-    <taskdef name="scalac" classname="scala.tools.ant.Scalac"
-      classpath="${scala-library.jar}:${scala-compiler.jar}"/>
+  <property name="ivy.settings.file" value="${basedir}/ivy/ivysettings.xml" />
+  <import file="${basedir}/ant/bootstrap.xml" />
+
+  <property name="install.dir" location="/opt/local/example" />
+  <target name="install" depends="package">
+    <mkdir dir="${install.dir}" />
+    <copy todir="${install.dir}">
+      <fileset dir="${dist.dir}" includes="**" />
+    </copy>
   </target>
-
-  <target name="build" depends="init">
-    <scalac srcdir="src/main/scala" destdir="./build/classes"
-           classpath="${scala-library.jar}:${scala-compiler.jar}:${scala-optparse.jar}">
-      <include name="**/*.scala"/>
-    </scalac>
-  </target>
-
-  <target name="build-test" depends="init">
-    <scalac srcdir="src/test/scala" destdir="./build/classes-test"
-           classpath="${scala-library.jar}:${junit.jar}:${specs.jar}:${scalacheck.jar}:./build/classes">
-      <include name="**/*.scala"/>
-    </scalac>
-  </target>
-
-
-  <target name="test" depends="init, build, build-test">
-    <junit  printsummary="yes" showoutput="yes" haltonfailure="yes">
-     <classpath>
-       <pathelement location="./build/classes/"/>
-       <pathelement location="./build/classes-test/"/>
-       <pathelement path="${scala-library.jar}:${scala-compiler.jar}:${junit.jar}:${specs.jar}:${scalacheck.jar}"/>
-       <pathelement path="${java.class.path}"/>
-     </classpath>
-
-      <formatter type="plain"/>
-      <batchtest fork="yes" todir="./build/testreports">
-        <fileset dir="./build/classes-test">
-          <include name="**/*Test.class"/>
-        </fileset>
-      </batchtest>
-    </junit>
-  </target>
-
-  <target name="jar" depends="init, build, test">
-    <jar destfile="./build/sctags.jar" basedir="./build/classes" />
-  </target>
-
-
-  <!-- clean:    remove everything that was built,copied -->  
-  <target name="clean">
-    <delete dir="build"/>
-  </target>
-  
 </project>
