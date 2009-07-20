@@ -1,5 +1,6 @@
 package sctags
 
+import net.pmonk.optparse._
 import scala.collection.mutable.ListBuffer
 import java.io.File
 import java.io.PrintStream
@@ -8,9 +9,27 @@ import java.text.Collator
 object SCTags extends Parsing with TagGeneration {
   var outputFile: String = "tags"
   var recurse = false
-  var etags = true
+  var etags = false
 
   def main(args: Array[String]) {
+    val options = List(
+      Opt('f')
+      .withArgument[String]
+      .help("Write tags to specified file. Use \"-\" for stdout")
+      .alias('o')
+      .action { fname => outputFile = fname },
+      Opt("recurse")
+      .withArgument[Boolean]
+      .help("Recurse into directories supplied on command line")
+      .alias('R', true)
+      .action { r => recurse = r },
+      Opt("etags")
+      .withArgument[Boolean]
+      .help("Generate a TAGS file for emacsen")
+      .alias('E', true)
+      .action { e => etags = e }
+    )
+
     val files = new ListBuffer[File]
     args.foreach { fname =>
       val file = new File(fname)

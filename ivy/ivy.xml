@@ -25,6 +25,7 @@
     <dependency org="org.scala-tools" name="vscaladoc" rev="1.1-md-3" conf="bootstrap->*" />
 
     <dependency org="commons-logging" name="commons-logging" rev="1.1" />
+    <dependency org="scala-optparse" name="scala-optparse" rev="1.0" />
     <dependency org="commons-lang" name="commons-lang" rev="2.2" />
     <dependency org="com.workingmouse" name="scalaz" rev="3.0" />
     <dependency org="org.scalaforge" name="scalax" rev="0.1" />
