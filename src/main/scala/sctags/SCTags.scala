@@ -1,6 +1,6 @@
 package sctags
 
-import net.pmonk.optparse._
+import net.pmonk.optparse.Opt
 import scala.collection.mutable.ListBuffer
 import java.io.File
 import java.io.PrintStream
