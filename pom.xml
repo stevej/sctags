@@ -8,7 +8,7 @@
   <version>1.0.1</version>
   <inceptionYear>2007</inceptionYear>
   <properties>
-    <scala.version>2.6.1</scala.version>
+    <scala.version>2.13.1</scala.version>
     <scala-optparse.version>1.0</scala-optparse.version>
   </properties>
 
